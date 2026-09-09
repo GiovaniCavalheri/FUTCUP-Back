@@ -1,0 +1,57 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Player {
+  playerId  Int    @id @default(autoincrement())
+  namePlayer String @db.VarChar(100)
+  imgPlayer String?
+  position  String @db.VarChar(50)
+  numberTshirt Int
+  teamId    Int
+  team      Team   @relation(fields: [teamId], references: [teamId])
+}
+
+model Team {
+  teamId    Int    @id @default(autoincrement())
+  nameTeam  String @db.VarChar(100)
+  imgShield String?
+
+  players   Player[]
+  homeMatches Match[] @relation("HomeMatches")
+  awayMatches Match[] @relation("AwayMatches")
+}
+
+model News {
+  newsId  Int @id @default(autoincrement())
+  title String @db.VarChar(100)
+  description String @db.VarChar(250)
+  imgNews String? 
+  date DateTime
+}
+
+enum Status {
+  Agendado
+  Ao_Vivo 
+  Finalizado
+}
+
+model Match {
+ matchId Int @id @default(autoincrement())
+  matchDate DateTime
+  homeTeamId    Int 
+  awayTeamId    Int
+
+  homeTeamsGoals    Int      @default(0)
+  awayTeamsGoals     Int      @default(0)
+  winner   String? @db.VarChar(100)
+  status Status @default(Agendado)
+
+  homeTeam Team @relation("HomeMatches", fields: [homeTeamId], references: [teamId])
+  awayTeam Team @relation("AwayMatches", fields: [awayTeamId], references: [teamId])
+}
