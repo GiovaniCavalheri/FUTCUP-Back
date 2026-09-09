@@ -5,14 +5,14 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-  url = env("DATABASE_URL)
 }
 
 model Player {
   playerId  Int    @id @default(autoincrement())
   namePlayer String @db.VarChar(100)
   imgPlayer String?
-
+  position  String @db.VarChar(50)
+  numberTshirt Int
   teamId    Int
   team      Team   @relation(fields: [teamId], references: [teamId])
 }
@@ -25,7 +25,10 @@ model Team {
   players   Player[]
 }
 
-model Match {
-  mathId int @id @default(autoincrement())
-  // terminar
+model News {
+  newsId  Int @id @default(autoincrement())
+  title String @db.VarChar(100)
+  description String @db.VarChar(250)
+  imgNews String? 
+  date DateTime
 }
