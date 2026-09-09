@@ -1,0 +1,31 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url = env("DATABASE_URL)
+}
+
+model Player {
+  playerId  Int    @id @default(autoincrement())
+  namePlayer String @db.VarChar(100)
+  imgPlayer String?
+
+  teamId    Int
+  team      Team   @relation(fields: [teamId], references: [teamId])
+}
+
+model Team {
+  teamId    Int    @id @default(autoincrement())
+  nameTeam  String @db.VarChar(100)
+  imgShield String?
+
+  players   Player[]
+}
+
+model Match {
+  mathId int @id @default(autoincrement())
+  // terminar
+}

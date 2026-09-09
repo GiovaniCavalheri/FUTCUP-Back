@@ -16,3 +16,4 @@ logs/
 .tmp/
 temp/
 *tsconfig.json
+/src/generated/prisma
