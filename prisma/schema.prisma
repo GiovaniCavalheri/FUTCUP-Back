@@ -23,6 +23,8 @@ model Team {
   imgShield String?
 
   players   Player[]
+  homeMatches Match[] @relation("HomeMatches")
+  awayMatches Match[] @relation("AwayMatches")
 }
 
 model News {
@@ -31,4 +33,19 @@ model News {
   description String @db.VarChar(250)
   imgNews String? 
   date DateTime
+}
+
+
+model Match {
+ matchId Int @id @default(autoincrement())
+  matchDate DateTime
+  homeTeamId    Int 
+  awayTeamId    Int
+
+  homeTeamsGoals    Int      @default(0)
+  awayTeamsGoals     Int      @default(0)
+  winner   String? @db.VarChar(100)
+
+  homeTeam Team @relation("HomeMatches", fields: [homeTeamId], references: [teamId])
+  awayTeam Team @relation("AwayMatches", fields: [awayTeamId], references: [teamId])
 }

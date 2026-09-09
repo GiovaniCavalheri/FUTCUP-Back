@@ -5,8 +5,3 @@ interface News {
     imgNews?: string, 
     date: Date
 }
-
-// model Match {
-//   mathId int @id @default(autoincrement())
-//   // terminar
-// }
