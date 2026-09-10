@@ -59,7 +59,7 @@ model Match {
 
 model Usuario {
   idUser Int @id @default(autoincrement())
-  email String @db.VarChar(150)
+  email String @unique @db.VarChar(150)
   role String @db.VarChar(15)
-  password String @db.VarChar(50)
+  password String @db.VarChar(60)
 }
