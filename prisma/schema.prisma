@@ -42,7 +42,7 @@ enum Status {
 }
 
 model Match {
- matchId Int @id @default(autoincrement())
+  matchId Int @id @default(autoincrement())
   matchDate DateTime
   homeTeamId    Int 
   awayTeamId    Int
@@ -54,4 +54,12 @@ model Match {
 
   homeTeam Team @relation("HomeMatches", fields: [homeTeamId], references: [teamId])
   awayTeam Team @relation("AwayMatches", fields: [awayTeamId], references: [teamId])
+}
+
+
+model Usuario {
+  idUser Int @id @default(autoincrement())
+  email String @db.VarChar(150)
+  role String @db.VarChar(15)
+  password String @db.VarChar(50)
 }
